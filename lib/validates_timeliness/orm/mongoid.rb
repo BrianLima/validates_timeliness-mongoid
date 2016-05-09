@@ -35,6 +35,13 @@ module ValidatesTimeliness
         end
       end
 
+      # This is needed in order to mark the attribute as changed;
+      # otherwise, mongoid won't save it to the database.
+      def write_timeliness_attribute(attr_name, value)
+        attribute_will_change!(database_field_name(attr_name))
+        super
+      end
+
       def reload(*args)
         _clear_timeliness_cache
         super
