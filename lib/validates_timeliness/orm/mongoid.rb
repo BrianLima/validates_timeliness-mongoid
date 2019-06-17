@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ValidatesTimeliness
   module ORM
     module Mongoid
@@ -7,8 +9,6 @@ module ValidatesTimeliness
       # field value in Mongoid. Parser will return nil rather than error.
 
       module ClassMethods
-        public
-
         # Mongoid has no bulk attribute method definition hook. It defines
         # them with each field definition. So we likewise define them after
         # each validation is defined.
@@ -50,7 +50,9 @@ module ValidatesTimeliness
   end
 end
 
-module Mongoid::Document
-  include ValidatesTimeliness::AttributeMethods
-  include ValidatesTimeliness::ORM::Mongoid
+module Mongoid
+  module Document
+    include ValidatesTimeliness::AttributeMethods
+    include ValidatesTimeliness::ORM::Mongoid
+  end
 end
