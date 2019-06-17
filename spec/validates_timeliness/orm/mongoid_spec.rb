@@ -7,6 +7,17 @@ describe ValidatesTimeliness, Mongoid do
     Mongoid.purge!
   end
 
+  module ClassMethods
+    def with_config(preference_name, temporary_value)
+      around do |test|
+        original_config_value = ValidatesTimeliness.send(preference_name)
+        ValidatesTimeliness.send(:"#{preference_name}=", temporary_value)
+        test.run
+        ValidatesTimeliness.send(:"#{preference_name}=", original_config_value)
+      end
+    end
+  end
+
   class Article
     include Mongoid::Document
     field :publish_date, type: Date
@@ -59,7 +70,7 @@ describe ValidatesTimeliness, Mongoid do
     it 'caches attribute raw value' do
       record.publish_datetime = date_string = '2010-01-01'
 
-      expect(record._timeliness_raw_value_for('publish_datetime')).to eq date_string
+      expect(record.read_timeliness_attribute_before_type_cast('publish_datetime')).to eq date_string
     end
 
     context 'with plugin parser' do
@@ -155,7 +166,7 @@ describe ValidatesTimeliness, Mongoid do
       record = Article.create!
       record.publish_date = '2010-01-01'
       record.reload
-      expect(record._timeliness_raw_value_for('publish_date')).to be_nil
+      expect(record.read_timeliness_attribute_before_type_cast('publish_date')).to be_nil
     end
   end
 

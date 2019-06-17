@@ -17,8 +17,12 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*'
 
+RSpec/MultipleExpectations:
+  Max: 5
+
 RSpec/NestedGroups:
   Max: 5
 
 Style/Documentation:
   Enabled: false
+
