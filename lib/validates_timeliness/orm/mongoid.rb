@@ -40,18 +40,19 @@ module ValidatesTimeliness
 
         def define_timeliness_write_method(attr_name)
           generated_timeliness_methods.module_eval <<-STR, __FILE__, __LINE__ + 1
-            def #{attr_name}=(value)
-              @timeliness_cache ||= {}
-              @timeliness_cache['#{attr_name}'] = value
-              @attributes['#{attr_name}'] = super
-            end
+            def #{attr_name}=(value)                      # def publish_date=(value)
+              @timeliness_cache ||= {}                    #   @timeliness_cache ||= {}
+              @timeliness_cache['#{attr_name}'] = value   #   @timeliness_cache['publish_date'] = value
+              @attributes['#{attr_name}'] = super         #   @attributes['publish_date']
+            end                                           # end
           STR
         end
 
         def generated_timeliness_methods
-          @generated_timeliness_methods ||= Module.new { |m|
+          @generated_timeliness_methods ||= Module.new do |_m|
             extend Mutex_m
-          }.tap { |mod| include mod }
+          end
+          @generated_timeliness_methods.tap { |mod| include mod }
         end
       end
 

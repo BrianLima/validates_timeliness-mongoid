@@ -3,20 +3,7 @@
 require 'spec_helper'
 
 describe ValidatesTimeliness, Mongoid do
-  after do
-    Mongoid.purge!
-  end
-
-  module ClassMethods
-    def with_config(preference_name, temporary_value)
-      around do |test|
-        original_config_value = ValidatesTimeliness.send(preference_name)
-        ValidatesTimeliness.send(:"#{preference_name}=", temporary_value)
-        test.run
-        ValidatesTimeliness.send(:"#{preference_name}=", original_config_value)
-      end
-    end
-  end
+  after { Mongoid.purge! }
 
   let(:article) { Faker::Article }
 
@@ -66,22 +53,23 @@ describe ValidatesTimeliness, Mongoid do
     end
 
     context 'with plugin parser' do
-      before { ValidatesTimeliness.use_plugin_parser = true }
-      after { ValidatesTimeliness.use_plugin_parser = false }
+      before { described_class.use_plugin_parser = true }
+
+      after { described_class.use_plugin_parser = false }
 
       let(:record) { article.new }
 
       context 'with date columns' do
-        it 'parses a string value', broken: true do
-          expect(Timeliness::Parser).to receive(:parse)
+        it 'parses a string value' do
+          expect(Timeliness::Parser).to have_receive(:parse)
 
           # record.update publish_date: Date.new
           # record.publish_date = '2010-01-01'
           record.update publish_date: '2010-01-01'
         end
 
-        it 'parses a invalid string value as nil', broken: true do
-          expect(Timeliness::Parser).to receive(:parse)
+        it 'parses a invalid string value as nil' do
+          expect(Timeliness::Parser).to have_receive(:parse)
 
           record.publish_date = 'not valid'
         end
@@ -95,19 +83,19 @@ describe ValidatesTimeliness, Mongoid do
       end
 
       context 'with time columns' do
-        it 'parses a string value', broken: true do
-          expect(Timeliness::Parser).to receive(:parse)
+        it 'parses a string value' do
+          expect(Timeliness::Parser).to have_receive(:parse)
 
           record.publish_time = '12:30'
         end
 
-        it 'parses a invalid string value as nil', broken: true do
-          expect(Timeliness::Parser).to receive(:parse)
+        it 'parses a invalid string value as nil' do
+          expect(Timeliness::Parser).to have_receive(:parse)
 
           record.publish_time = 'not valid'
         end
 
-        it 'stores a Time value after parsing string', broken: true do
+        it 'stores a Time value after parsing string' do
           record.publish_time = '12:30'
 
           expect(record.publish_time).to be_kind_of(Time)
@@ -118,14 +106,14 @@ describe ValidatesTimeliness, Mongoid do
       context 'with datetime columns' do
         let(:time_zone) { Faker::Address.time_zone }
 
-        it 'parses a string value', broken: true do
-          expect(Timeliness::Parser).to receive(:parse)
+        it 'parses a string value' do
+          expect(Timeliness::Parser).to have_receive(:parse)
 
           record.publish_datetime = '2010-01-01 12:00'
         end
 
-        it 'parses a invalid string value as nil', broken: true do
-          expect(Timeliness::Parser).to receive(:parse)
+        it 'parses a invalid string value as nil' do
+          expect(Timeliness::Parser).to have_receive(:parse)
 
           record.publish_datetime = 'not valid'
         end
@@ -176,7 +164,9 @@ describe ValidatesTimeliness, Mongoid do
     end
 
     context 'with plugin parser' do
-      with_config(:use_plugin_parser, true)
+      before { described_class.use_plugin_parser = true }
+
+      after { described_class.use_plugin_parser = true }
 
       it 'returns original value' do
         record.publish_datetime = date_string = '2010-01-31'
@@ -186,8 +176,9 @@ describe ValidatesTimeliness, Mongoid do
   end
 
   context 'with aliased fields' do
-      before { ValidatesTimeliness.use_plugin_parser = true }
-      after { ValidatesTimeliness.use_plugin_parser = false }
+    before { described_class.use_plugin_parser = true }
+
+    after { described_class.use_plugin_parser = false }
 
     it 'determines type for attribute' do
       expect(article.timeliness_attribute_type(:publish_date)).to eq :date
