@@ -1,4 +1,5 @@
-# ValidatesTimeliness::Mongoid
+# ValidatesTimeliness::Mongoid |
+[![Gem Version](https://badge.fury.io/rb/validates_timeliness-mongoid.svg)](https://badge.fury.io/rb/validates_timeliness-mongoid)
 
 This the extracted mongoid adapter code from the validates_timeliness gem.
 
