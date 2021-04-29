@@ -13,7 +13,7 @@ Mongoid.configure do |config|
 end
 
 RSpec.configure do |config|
-  config.fail_fast = false
+  config.fail_fast = true
   config.filter_run_excluding broken: true
 
   config.expect_with :rspec do |expectations|
