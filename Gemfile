@@ -2,7 +2,5 @@
 
 source 'https://rubygems.org'
 
+# Specify your gem's dependencies in validates_timeliness-mongoid.gemspec
 gemspec
-
-gem 'bson_ext'
-gem 'mongoid', '>= 3.0'
