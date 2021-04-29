@@ -61,17 +61,21 @@ describe ValidatesTimeliness, Mongoid do
 
       context 'with date columns' do
         it 'parses a string value' do
-          expect(Timeliness::Parser).to have_receive(:parse)
+          allow(Timeliness::Parser).to receive(:parse)
 
           # record.update publish_date: Date.new
           # record.publish_date = '2010-01-01'
-          record.update publish_date: '2010-01-01'
+          record.update(publish_date: '2010-01-01')
+
+          expect(Timeliness::Parser).to have_received(:parse)
         end
 
         it 'parses a invalid string value as nil' do
-          expect(Timeliness::Parser).to have_receive(:parse)
+          allow(Timeliness::Parser).to receive(:parse)
 
-          record.publish_date = 'not valid'
+          record.update(publish_date: 'not valid')
+
+          expect(Timeliness::Parser).to have_received(:parse)
         end
 
         it 'stores a Date value after parsing string' do
@@ -84,22 +88,28 @@ describe ValidatesTimeliness, Mongoid do
 
       context 'with time columns' do
         it 'parses a string value' do
-          expect(Timeliness::Parser).to have_receive(:parse)
+          allow(Timeliness::Parser).to receive(:parse)
 
-          record.publish_time = '12:30'
+          record.update(publish_time: '12:30')
+
+          expect(Timeliness::Parser).to have_received(:parse)
         end
 
         it 'parses a invalid string value as nil' do
-          expect(Timeliness::Parser).to have_receive(:parse)
+          allow(Timeliness::Parser).to receive(:parse)
 
-          record.publish_time = 'not valid'
+          record.update(publish_time: 'not valid')
+
+          expect(Timeliness::Parser).to have_received(:parse)
         end
 
         it 'stores a Time value after parsing string' do
           record.publish_time = '12:30'
 
           expect(record.publish_time).to be_kind_of(Time)
-          expect(record.publish_time).to eq Time.utc(2000, 1, 1, 12, 30)
+          expect(record.publish_time).to eq Time.new(Time.now.year,
+                                                     Time.now.month,
+                                                     Time.now.day, 12, 30)
         end
       end
 
@@ -107,15 +117,19 @@ describe ValidatesTimeliness, Mongoid do
         let(:time_zone) { Faker::Address.time_zone }
 
         it 'parses a string value' do
-          expect(Timeliness::Parser).to have_receive(:parse)
+          allow(Timeliness::Parser).to receive(:parse)
 
-          record.publish_datetime = '2010-01-01 12:00'
+          record.update(publish_datetime: '2010-01-01 12:00')
+
+          expect(Timeliness::Parser).to have_received(:parse)
         end
 
         it 'parses a invalid string value as nil' do
-          expect(Timeliness::Parser).to have_receive(:parse)
+          allow(Timeliness::Parser).to receive(:parse)
 
-          record.publish_datetime = 'not valid'
+          record.update(publish_datetime: 'not valid')
+
+          expect(Timeliness::Parser).to have_received(:parse)
         end
 
         it 'parses string into DateTime value' do
