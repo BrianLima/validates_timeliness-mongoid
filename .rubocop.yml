@@ -1,11 +1,16 @@
+---
+
 require:
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
-    - 'vendor/bundle/**/*'
+    - bin/**/*
+    - vendor/**/*
+  TargetRubyVersion: 2.6
+  NewCops: enable
 
+### METRICS ###
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
@@ -17,12 +22,13 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*'
 
+### RPSEC ###
 RSpec/MultipleExpectations:
   Max: 5
 
 RSpec/NestedGroups:
   Max: 5
 
+### STYLES ###
 Style/Documentation:
   Enabled: false
-
