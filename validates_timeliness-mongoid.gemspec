@@ -40,6 +40,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'reek', '~> 6.0.4'
   spec.add_development_dependency 'rspec', '~> 3.10'
   spec.add_development_dependency 'rubocop', '~> 1.13.0'
+  spec.add_development_dependency 'rubocop-faker', '~> 1.1'
+  spec.add_development_dependency 'rubocop-performance', '~> 1.11', '>= 1.11.1'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.3'
 
   spec.add_dependency 'mongoid', '~> 7.2', '>= 7.2.2'
