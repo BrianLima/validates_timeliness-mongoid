@@ -1,0 +1,10 @@
+---
+
+detectors:
+  IrresponsibleModule:
+    enabled: false
+
+directories:
+  "lib/validates_timeliness/mongoid":
+    TooManyConstants:
+      enabled: false

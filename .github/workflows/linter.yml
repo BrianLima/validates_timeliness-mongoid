@@ -6,13 +6,14 @@ on:
   push:
     branches-ignore:
       - master
+      - develop
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        linter: ['rubocop', 'reek']
+        linter: ['rubocop', 'reek --single-line .']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby 2.6
