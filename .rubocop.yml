@@ -1,6 +1,8 @@
 ---
 
 require:
+  - rubocop-faker
+  - rubocop-performance
   - rubocop-rspec
 
 AllCops:
@@ -13,14 +15,12 @@ AllCops:
 ### METRICS ###
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
-
-Metrics/LineLength:
-  Enabled: false
+    - spec/**/*
+    - validates_timeliness-mongoid.gemspec
 
 Metrics/MethodLength:
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 ### RPSEC ###
 RSpec/MultipleExpectations:

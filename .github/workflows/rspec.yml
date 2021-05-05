@@ -3,8 +3,13 @@
 name: RSpec
 
 on:
+  pull_request:
+    branches:
+      - develop
   push:
-    branches: [ develop ]
+    branches-ignore:
+      - develop
+      - master
 
 jobs:
   test:
@@ -16,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
-      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
@@ -26,3 +31,10 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
     - name: Run tests
       run: bundle exec rake
+    - name: Publish code coverage
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: "${{secrets.CC_TEST_REPORTER_ID}}"
+      with:
+        coverageLocations: |
+          ${{github.workspace}}/coverage/coverage.json:simplecov

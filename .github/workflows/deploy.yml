@@ -4,7 +4,9 @@ name: Ruby Gem
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
 
 jobs:
   build:

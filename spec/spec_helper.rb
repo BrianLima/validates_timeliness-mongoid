@@ -3,6 +3,11 @@
 require 'faker'
 require 'mongoid'
 require 'validates_timeliness/mongoid'
+require 'simplecov'
+require 'simplecov_json_formatter'
+
+SimpleCov.start
+SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 
 Dir['spec/support/faker/*.rb'].each do |class_example|
   require File.expand_path(class_example)
