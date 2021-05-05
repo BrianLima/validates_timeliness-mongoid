@@ -2,21 +2,33 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'validates_timeliness/mongoid/version'
+
+require 'validates_timeliness/mongoid/info'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'validates_timeliness-mongoid'
-  spec.version       = ValidatesTimeliness::Mongoid::VERSION
-  spec.authors       = ['Adam Meehan']
-  spec.email         = ['adam.meehan@gmail.com']
+  spec.version       = if ENV['GITHUB_REF'].eql?('refs/heads/develop')
+                         "#{ValidatesTimeliness::Mongoid::VERSION}.pre.#{ENV['GITHUB_RUN_ID']}"
+                       else
+                         ValidatesTimeliness::Mongoid::VERSION
+                       end
 
-  spec.summary       = 'ValidatesTimeliness mongoid extension'
-  spec.description   = 'ValidatesTimeliness mongoid ORM compatability'
-  spec.homepage      = 'https://github.com/diowa/validates_timeliness-mongoid'
+  spec.name          = ValidatesTimeliness::Mongoid::GEM_NAME
+  spec.authors       = ValidatesTimeliness::Mongoid::AUTHORS
+  spec.email         = ValidatesTimeliness::Mongoid::EMAILS
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.summary       = ValidatesTimeliness::Mongoid::SUMMARY
+  spec.description   = ValidatesTimeliness::Mongoid::DESCRIPTION
+
+  spec.homepage      = ValidatesTimeliness::Mongoid::HOMEPAGE
+  spec.license       = ValidatesTimeliness::Mongoid::LICENSE
+
+  spec.files         = ['Gemfile', 'Rakefile', 'README.md', 'LICENSE']
+  spec.files         += Dir['lib/**/*']
+  spec.files         += Dir['spec/**/*']
+
+  spec.bindir        = 'bin'
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 2.6.0'
