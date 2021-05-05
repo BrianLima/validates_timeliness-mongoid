@@ -6,10 +6,6 @@ on:
   pull_request:
     branches:
       - develop
-  push:
-    branches-ignore:
-      - develop
-      - master
 
 jobs:
   test:
