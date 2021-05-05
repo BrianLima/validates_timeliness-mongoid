@@ -4,8 +4,6 @@ This the extracted mongoid adapter code from the validates_timeliness gem.
 
 WARNING: The specs are not wired up properly and may not run. I will not be supporting this gem.
 
-REQUEST: Someone who wants mongoid support is welcome to take over ownership of this gem.
-
 ## Installation
 
 Add this line to your application's Gemfile:
