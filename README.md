@@ -9,8 +9,6 @@
 
 This the extracted mongoid adapter code from the validates_timeliness gem.
 
-WARNING: The specs are not wired up properly and may not run. I will not be supporting this gem.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -21,11 +19,15 @@ gem 'validates_timeliness-mongoid'
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install validates_timeliness-mongoid
+```
+$ gem install validates_timeliness-mongoid
+```
 
 ## Development
 
