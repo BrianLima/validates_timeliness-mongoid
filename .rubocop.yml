@@ -1,28 +1,34 @@
+---
+
 require:
+  - rubocop-faker
+  - rubocop-performance
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
-    - 'vendor/bundle/**/*'
+    - bin/**/*
+    - vendor/**/*
+  TargetRubyVersion: 2.6
+  NewCops: enable
 
+### METRICS ###
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
-
-Metrics/LineLength:
-  Enabled: false
+    - spec/**/*
+    - validates_timeliness-mongoid.gemspec
 
 Metrics/MethodLength:
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
+### RPSEC ###
 RSpec/MultipleExpectations:
   Max: 5
 
 RSpec/NestedGroups:
   Max: 5
 
+### STYLES ###
 Style/Documentation:
   Enabled: false
-
