@@ -22,7 +22,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true
+        bundler-cache: false
     - name: Start MongoDB v${{ matrix.mongodb-version }}
       uses: supercharge/mongodb-github-action@1.2.0
       with:
