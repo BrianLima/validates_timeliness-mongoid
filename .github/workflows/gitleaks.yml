@@ -4,7 +4,8 @@ name: gitleaks
 
 on:
   push:
-    branches-ignore:
+    branches:
+      - bugfix/*
       - master
       - develop
 
