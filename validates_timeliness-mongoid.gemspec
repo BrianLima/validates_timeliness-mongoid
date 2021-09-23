@@ -6,10 +6,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'validates_timeliness/mongoid/info'
 
 Gem::Specification.new do |spec|
-  spec.version       = if ENV['GITHUB_REF'].eql?('refs/heads/develop')
-                         "#{ValidatesTimeliness::Mongoid::VERSION}.pre.#{ENV['GITHUB_RUN_ID']}"
+  version = ValidatesTimeliness::Mongoid::VERSION
+  spec.version       = if ENV.key?('GITHUB_RUN_ID') &&
+                          !ENV['GITHUB_REF'].eql?('refs/heads/master')
+                         "#{version}.pre.#{ENV['GITHUB_RUN_ID']}"
                        else
-                         ValidatesTimeliness::Mongoid::VERSION
+                         version
                        end
 
   spec.name          = ValidatesTimeliness::Mongoid::GEM_NAME

@@ -2,7 +2,7 @@
 
 module ValidatesTimeliness
   module Mongoid
-    VERSION = '5.0.0'
+    VERSION = '5.0.1'
 
     # Name to gem
     GEM_NAME = 'validates_timeliness-mongoid'
