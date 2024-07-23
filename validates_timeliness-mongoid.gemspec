@@ -48,6 +48,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.21.2'
   spec.add_development_dependency 'simplecov_json_formatter', '~> 0.1.3'
 
-  spec.add_dependency 'mongoid', '~> 7.1', '< 7.2'
-  spec.add_dependency 'validates_timeliness', '~> 5.0'
+  spec.add_dependency 'mongoid', '~> 7.1', '< 8'
+  spec.add_dependency 'validates_timeliness', '~> 6.0'
 end
