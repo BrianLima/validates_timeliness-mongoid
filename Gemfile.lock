@@ -109,7 +109,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bundler (~> 2.5, <= 2.5.15)
+  bundler (~> 2.2, <= 2.2.16)
   faker (~> 2.17)
   pry-byebug (~> 3.9)
   rake (~> 13.0, >= 13.0.3)
@@ -124,4 +124,4 @@ DEPENDENCIES
   validates_timeliness-mongoid!
 
 BUNDLED WITH
-   2.5.15
+   2.2.16
